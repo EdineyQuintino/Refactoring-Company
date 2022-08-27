@@ -18,9 +18,24 @@ module.exports = {
 
     async create(request, response) {
         try {
+            
             const { name, birthdate, cpf, number, office, road, housenumber, district, city, cep, uf } = request.body;
-
-            const functionariInfo = {
+            const functionari = await connection.functionari.create({
+                data: {
+                name,
+                birthdate,
+                cpf,
+                number,
+                office,
+                road,
+                housenumber,
+                district,
+                city,
+                cep,
+                uf
+                }
+            })
+            /*const functionariInfo = {
                 id: crypto.randomBytes(4).toString('HEX'),
                 name,
                 birthdate,
@@ -44,8 +59,8 @@ module.exports = {
                 functionariInfo.uf = responseViacep.data.uf;
             };
             
-            await connection('functionari').insert(functionariInfo);
-            return response.status(201).json({ functionariInfo });
+            await connection.functionari.create(functionariInfo);*/
+            return response.status(201).json({ functionari });
 
         } catch (error) {
             return response.status(400).json({ message: error.message });
