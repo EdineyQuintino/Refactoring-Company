@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model functionari {
+  id          String @id @default(uuid())
+  name        String @db.VarChar(255)
+  birthdate   String @db.VarChar(255)
+  cpf         String @db.VarChar(255)
+  number      String @db.VarChar(255)
+  office      String @db.VarChar(255)
+  road        String @db.VarChar(255)
+  housenumber String @db.VarChar(255)
+  district    String @db.VarChar(255)
+  city        String @db.VarChar(255)
+  cep         String @db.VarChar(255)
+  uf          String @db.VarChar(2)
+}
+
+model knex_migrations {
+  id             Int       @id @default(autoincrement())
+  name           String?   @db.VarChar(255)
+  batch          Int?
+  migration_time DateTime? @db.Timestamptz(6)
+}
+
+model knex_migrations_lock {
+  index     Int  @id @default(autoincrement())
+  is_locked Int?
+}
+
+model medic {
+  id          String    @id @default(uuid())
+  name        String    @db.VarChar(255)
+  birthdate   String    @db.VarChar(255)
+  cpf         String    @db.VarChar(255)
+  number      String    @db.VarChar(255)
+  crm         String    @db.VarChar(255)
+  specialist  String    @db.VarChar(255)
+  road        String    @db.VarChar(255)
+  housenumber String    @db.VarChar(255)
+  district    String    @db.VarChar(255)
+  city        String    @db.VarChar(255)
+  cep         String    @db.VarChar(255)
+  uf          String    @db.VarChar(2)
+  patient     patient[]
+}
+
+model patient {
+  id              String  @id @default(uuid())
+  name            String  @db.VarChar(255)
+  birthdate       String  @db.VarChar(255)
+  cpf             String  @db.VarChar(255)
+  number          String  @db.VarChar(255)
+  agreementnumber String  @db.VarChar(255)
+  road            String  @db.VarChar(255)
+  housenumber     String  @db.VarChar(255)
+  district        String  @db.VarChar(255)
+  city            String  @db.VarChar(255)
+  cep             String  @db.VarChar(255)
+  uf              String  @db.VarChar(2)
+  medic_id        String? @db.VarChar(255)
+  medic           medic?  @relation(fields: [medic_id], references: [id], onDelete: Cascade, map: "patient_medic_id_foreign")
+}
