@@ -8,7 +8,7 @@ const { URL_VIA_CEP } = process.env;
 module.exports = {
     async index(request, response) {
         try {
-            const functionari = await connection.functionari.body;
+            const functionari = await connection.functionari.findMany();
 
             return response.status(200).json(functionari);
         } catch (error) {

@@ -8,7 +8,7 @@ const { URL_VIA_CEP } = process.env;
 module.exports = {
     async index(request,response) {
         try {
-            const medic = await connection('medic').select('*');
+            const medic = await connection.medic.findMany();;
 
             return response.status(200).json(medic);
         } catch (error) {
